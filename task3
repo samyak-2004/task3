@@ -1,0 +1,158 @@
+# this task is in python
+# Importing necessary modules
+import os
+
+
+# Function to count lines that match a pattern
+def optionc(pattern, filenm):
+    '''display count of lines that matches a pattern'''
+    F = open(filenm, "r")
+    c = 0
+    st = F.readlines()
+    for x in st:
+        if pattern in x:
+            c = c + 1
+    F.close()
+    return c
+
+# Function to display lines that match a pattern
+def optionh(pattern, filenm):
+    '''display lines that matches a pattern'''
+    F = open(filenm, "r")
+    c = 0
+    st = F.readlines()
+    for x in st:
+        if pattern in x:
+            print(x)
+    
+    F.close()
+
+# Function to display lines that match a pattern (case insensitive)
+def optioni(pattern, filenm):
+    '''display lines that matches a pattern'''
+    F = open(filenm, "r")
+    c = 0
+    st = F.readlines()
+    for x in st:
+        pattern = pattern.lower()
+        x = x.lower()
+        if pattern in x:
+            print(x)
+    F.close()
+
+# Function to display lines that match a pattern exactly
+def optiono(pattern, filenm):
+    '''display lines that matches a pattern'''
+    F = open(filenm, "r")
+    st = F.read().split()
+    for x in st:
+        x = x.lower()
+        if x == pattern:
+            print(x)
+    F.close()
+
+# Function to display lines that match a pattern with line numbers
+def optionn(pattern, filenm):
+    '''display lines that matches a pattern'''
+    F = open(filenm, "r")
+    c = 0
+    st = F.readlines()
+    for x in st:
+        if pattern in x:
+            print(c, ":", x, sep='', end='')
+        c += 1
+    F.close()
+
+# Function to display lines that do not match a pattern
+def optionv(pattern, filenm):
+    '''display lines that matches a pattern'''
+    F = open(filenm, "r")
+    st = F.readlines()
+    for x in st:
+        if pattern not in x:
+            print(x, end='')
+    F.close()
+
+# Function to display lines that start with a pattern
+def optionstarts(pattern, filenm):
+    '''display lines that matches a pattern'''
+    F = open(filenm, "r")
+    st = F.readlines()
+    for x in st:
+        if x.startswith(pattern):
+            print(x, end='')
+    F.close()
+
+# Function to display lines that end with a pattern
+def optionends(pattern, filenm):
+    '''display lines that matches a pattern'''
+    F = open(filenm, "r")
+    st = F.readlines()
+    for x in st:
+        if x.endswith(pattern):
+            print(x, end='')
+    F.close()
+
+# Function to search for a pattern in files within a directory
+def optionr(dn, pat):
+    import os
+    for filename in os.listdir(dn):
+        with open(os.path.join(dn, filename), 'r') as file:
+            content = file.read()
+            if pat in content:
+                print(filename)
+
+# Main loop for user interaction
+while True:
+    print('''Select the grep options
+            1.option -c
+            2.option -h
+            3.option -i
+            4.option -o
+            5.option -n
+            6.option -v
+            7.option ^ startswith
+            8.option $ endswith
+            9.option r
+            0.exit''')
+    ch = int(input("Enter choice"))
+    if ch == 1:
+        fn = input("Enter file name")
+        pat = input("Enter pattern")
+        x = optionc(pat, fn)
+        print("Number of lines:", x)
+    elif ch == 2:
+        fn = input("Enter file name")
+        pat = input("Enter pattern")
+        optionh(pat, fn)
+    elif ch == 3:
+        fn = input("Enter file name")
+        pat = input("Enter pattern")
+        optioni(pat, fn)
+    elif ch == 4:
+        fn = input("Enter file name")
+        pat = input("Enter pattern")
+        optiono(pat, fn)
+    elif ch == 5:
+        fn = input("Enter file name")
+        pat = input("Enter pattern")
+        optionn(pat, fn)
+    elif ch == 6:
+        fn = input("Enter file name")
+        pat = input("Enter pattern")
+        optionv(pat, fn)
+    elif ch == 7:
+        fn = input("Enter file name")
+        pat = input("Enter pattern")
+        optionstarts(pat, fn)
+    elif ch == 8:
+        fn = input("Enter file name")
+        pat = input("Enter pattern")
+        optionends(pat, fn)
+    elif ch == 9:
+        dn = input("Enter directory path")
+        pat = input("Enter pattern")
+        optionr(dn, pat)
+    elif ch == 0:
+        print("Exiting..")
+        break
